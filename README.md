@@ -238,6 +238,30 @@ x.div(3)                            // '0.3333333333'
 y.div(3)                            // '0.33333'
 ```
 
+You may also extend BigNumber as a class if you'd like to use it with something like typescript
+
+```typescript
+class WholeNumber extends BigNumber {
+  type = WholeNumber;
+}
+
+WholeNumber.config({
+  DECIMAL_PLACES: 0
+})
+
+const one = new WholeNumber(1);
+
+one instanceof WholeNumber;           // true
+
+function multiplyByThree(n: WholeNumber): WholeNumber {
+  return one.times(3);
+}
+
+multiplyByThree(new BigNumber(1));    // Doesn't work
+multiplyByThree(new WholeNumber(1));  // works
+```
+
+
 To avoid having to call `toString` or `valueOf` on a BigNumber to get its value in the Node.js REPL or when using `console.log` use
 
 ```javascript
